@@ -123,7 +123,7 @@
     $f6 = ($a6 XOR $b6); // Operación XOR
 
     // Mostrar los valores usando var_dump
-    echo "Valores booleanos y var_dump:\n";
+    echo "Valores booleanos y var_dump:";
     echo "\$a: ";
     var_dump($a6); // string(1) "0"
     echo '<br>';
@@ -142,6 +142,27 @@
     echo "\$f: ";
     var_dump($f6); // bool(true) o false, revisado
     echo '<br>';
+    echo '<br>';
+
+ //-------------------------------------------------------------------------------------//
+    echo "Informacion, Punto 7:";
+    // a. Versión de Apache y PHP
+    $apache_version = $_SERVER['SERVER_SOFTWARE'] ?? 'No disponible';
+    $php_version = phpversion(); // Función para obtener la versión de PHP
+
+    // b. Nombre del sistema operativo del servidor
+    $os = php_uname(); // Función para obtener el nombre del sistema operativo del servidor
+
+    // c. Idioma del navegador del cliente
+    $browser_language = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'No disponible';
+
+    // Mostrar la información
+    echo "<h1>Información del Servidor y del Cliente</h1>";
+    echo "<p><strong>Versión de Apache:</strong> " . $apache_version . "</p>";
+    echo "<p><strong>Versión de PHP:</strong> " . $php_version . "</p>";
+    echo "<p><strong>Sistema Operativo del Servidor:</strong> " . $os . "</p>";
+    echo "<p><strong>Idioma del Navegador del Cliente:</strong> " . $browser_language . "</p>";
+
 
 
     ?>
