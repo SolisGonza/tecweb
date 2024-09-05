@@ -36,6 +36,7 @@
     
     <h1>Variables PHP punto 3</h1>
     <?php
+     //-------------------------------------------------------------------------------------//
     $a = "PHP5";
     echo "\$a: " .$a ;
     echo '<br>';
@@ -59,9 +60,10 @@
     echo '<br>';
     echo '<br>';
     echo '<br>';
+     //-------------------------------------------------------------------------------------//
     
     // Muestra los valores de las variables usando $GLOBALS
-    echo "Valores de las variables usando \$GLOBALS:\n";
+    echo "Valores de las variables usando $GLOBALS:";
     echo '<br>';
     $a = "PHP5";
     echo "\$a: " . $GLOBALS['a'] ; 
@@ -88,26 +90,60 @@
     echo '<br>';
     echo '<br>';
     
+    
     // Muestra los valores de las variables usando $GLOBALS
     echo "Punto 5:";
     echo '<br>';
-
+    $a5 = "7 personas";
+    $b5 = (integer) $a5; // Conversión de $a a entero
     // Mostrar los valores finales de las variables
+    $a5 = "9E3"; // Cambio del valor de $a
+    $c5 = (double) $a5; // Conversión de $a a double (número de punto flotante)
+
     echo "Valores finales:";
     echo '<br>';
-    $a = "7 personas";
-    echo "\$a: " . $a ; // "9E3"
+    echo "\$a: " . $a5 ; 
     echo '<br>';
-    $b = (integer) $a; // Conversión de $a a entero
-    echo "\$b: " . $b ; // "9E3"
+    echo "\$b: " . $b5 ; 
     echo '<br>';
-    $a = "9E3"; // Cambio del valor de $a
-    echo "\$a: " . $a ; // "9E3"
+    echo "\$c: " . $c5 ; 
     echo '<br>';
-    $c = (double) $a; // Conversión de $a a double (número de punto flotante)
-    echo "\$c: " . $c ; // "9E3"
     echo '<br>';
-   
+
+ //-------------------------------------------------------------------------------------//
+
+    echo "Punto 6 var_dump(<datos>):";
+    echo '<br>';
+    // Inicialización de variables
+    $a6 = "0";         // Cadena "0"
+    $b6 = "TRUE";      // Cadena "TRUE"
+    $c6 = FALSE;       // Booleano false
+    $d6 = ($a6 OR $b6);  // Operación OR
+    $e6 = ($a6 AND $c6); // Operación AND
+    $f6 = ($a6 XOR $b6); // Operación XOR
+
+    // Mostrar los valores usando var_dump
+    echo "Valores booleanos y var_dump:\n";
+    echo "\$a: ";
+    var_dump($a6); // string(1) "0"
+    echo '<br>';
+    echo "\$b: ";
+    var_dump($b6); // string(4) "TRUE"
+    echo '<br>';
+    echo "\$c: ";
+    var_dump($c6); // bool(false)
+    echo '<br>';
+    echo "\$d: ";
+    var_dump($d6); // bool(true) o false, revisado
+    echo '<br>';
+    echo "\$e: ";
+    var_dump($e6); // bool(false)
+    echo '<br>';
+    echo "\$f: ";
+    var_dump($f6); // bool(true) o false, revisado
+    echo '<br>';
+
+
     ?>
 
     
