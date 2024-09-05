@@ -57,8 +57,34 @@
     $z[0] = "MySQL";
     echo "\$z[0]: " .$z[0];
     echo '<br>';
+    echo '<br>';
+    echo '<br>';
     
- 
+    // Muestra los valores de las variables usando $GLOBALS
+    echo "Valores de las variables usando \$GLOBALS:\n";
+    echo '<br>';
+    $a = "PHP5";
+    echo "\$a: " . $GLOBALS['a'] ; 
+    echo '<br>';
+    $z[] = &$a;
+    echo "\$z[0]: " . $GLOBALS['z'][0] ; 
+    echo '<br>';
+    $b = "5a version de PHP";
+    echo "\$b: " . $GLOBALS['b'] ; 
+    echo '<br>';
+    $c = $b * 10; 
+    echo "\$c: " . $GLOBALS['c'] ; 
+    echo '<br>';
+    $a .= $b;
+    echo "\$a: " . $GLOBALS['a'] ; 
+    echo '<br>';
+    $b *= $c;
+    echo "\$b: " . $GLOBALS['b'] ; 
+    echo '<br>';
+    $z[0] = "MySQL";
+    echo "\$z[0]: " . $GLOBALS['z'][0] ; 
+    echo '<br>';
+    
     ?>
 
     
