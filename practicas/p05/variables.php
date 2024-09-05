@@ -15,6 +15,11 @@
     $var7 = "Variable con un número al final";
     $_element1 = "Variable con guion bajo y número";
     //$house*5 = "Variable con asterisco  y número"; No permitido
+    $a = "ManejadorSQL";
+    $b = 'MySQL';
+    $c = &$a;
+    $a = "PHP server";
+    $b = &$a;
     ?>
 
     <h1>Variables PHP</h1>
@@ -24,5 +29,11 @@
     <p><?php echo $var7; ?></p>
     <p><?php echo $_element1; ?></p>
 
+    <h1>Variables PHP punto 2</h1>
+    <p><?php echo $a; ?></p>
+    <p><?php echo $b; ?></p>
+    <p><?php echo $c; ?></p>
+    
+    
 </body>
 </html>
