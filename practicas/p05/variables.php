@@ -34,6 +34,33 @@
     <p><?php echo $b; ?></p>
     <p><?php echo $c; ?></p>
     
+    <h1>Variables PHP punto 3</h1>
+    <?php
+    $a = "PHP5";
+    echo "\$a: " .$a ;
+    echo '<br>';
+    $z[] = &$a;
+    echo "\$z[]: " .$z[0];
+    echo '<br>';
+    $b = "5a version de PHP";
+    echo "\$b: " .$b;
+    echo '<br>';
+    $c = $b * 10; 
+    echo "\$c: " .$c;
+    echo '<br>';
+    $a .= $b;
+    echo "\$a: " .$a;
+    echo '<br>';
+    $b *= $c;
+    echo "\$b: " .$b;
+    echo '<br>';
+    $z[0] = "MySQL";
+    echo "\$z[0]: " .$z[0];
+    echo '<br>';
+    
+ 
+    ?>
+
     
 </body>
 </html>
