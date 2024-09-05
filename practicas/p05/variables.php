@@ -84,7 +84,30 @@
     $z[0] = "MySQL";
     echo "\$z[0]: " . $GLOBALS['z'][0] ; 
     echo '<br>';
+
+    echo '<br>';
+    echo '<br>';
     
+    // Muestra los valores de las variables usando $GLOBALS
+    echo "Punto 5:";
+    echo '<br>';
+
+    // Mostrar los valores finales de las variables
+    echo "Valores finales:";
+    echo '<br>';
+    $a = "7 personas";
+    echo "\$a: " . $a ; // "9E3"
+    echo '<br>';
+    $b = (integer) $a; // Conversión de $a a entero
+    echo "\$b: " . $b ; // "9E3"
+    echo '<br>';
+    $a = "9E3"; // Cambio del valor de $a
+    echo "\$a: " . $a ; // "9E3"
+    echo '<br>';
+    $c = (double) $a; // Conversión de $a a double (número de punto flotante)
+    echo "\$c: " . $c ; // "9E3"
+    echo '<br>';
+   
     ?>
 
     
