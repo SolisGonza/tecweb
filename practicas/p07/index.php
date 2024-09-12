@@ -105,7 +105,48 @@
         echo "Por favor, proporciona un número válido en la URL, por ejemplo: ?numero=5";
     }
     ?>
+    <h2>Ejercicio 4</h2>
+    <p>Crear un arreglo cuyos índices van de 97 a 122 y cuyos valores son las letras de la ‘a’
+    a la ‘z’. Usa la función chr(n) que devuelve el caracter cuyo código ASCII es n para poner
+    el valor en cada índice.</p>
 
+    <?php
 
+    $arreglo_letras = array();
+
+    for ($indice = 97; $indice <= 122; $indice++) {
+        $arreglo_letras[$indice] = chr($indice);
+    }
+    echo '<br>';
+    // Comienza la tabla XHTML
+    echo '<style>
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid green;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+      </style>';
+      
+    echo '<table border="2">';
+    echo '<tr><th>ASCII</th><th>Letra</th></tr>';
+
+    // Recorremos el arreglo y generamos una fila para cada valor
+    foreach ($arreglo_letras as $key => $value) {
+        echo '<tr>';
+        echo '<td>' . $key . '</td>';   // Índice del arreglo (ASCII)
+        echo '<td>' . $value . '</td>'; // Valor del arreglo (letra)
+        echo '</tr>';
+    }
+    // Cerrar la tabla
+    echo '</table>';
+    ?>
+    
 </body>
 </html>
