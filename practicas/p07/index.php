@@ -57,6 +57,55 @@
         echo "<h5>Total: $numerosGenerados números obtenidos en $iteraciones iteraciones.</h5>";
 
     ?>
+    <h2>Ejercicio 3 usando while</h2>
+    <p>Utiliza un ciclo while para encontrar el primer número entero obtenido aleatoriamente,
+    pero que además sea múltiplo de un número dado.</p>
+
+    <?php
+    // Verifica si el parámetro 'numero' está presente en la URL y es válido
+    if (isset($_GET['numero']) ) {
+        $valor = intval($_GET['numero']); // Convertir el valor a entero
+
+        // Inicializa el número aleatorio entre 1 y 999
+        $numero_aleatorio = rand(1, 999);
+
+        // Ciclo while hasta que el número aleatorio sea múltiplo del valor dado
+        while ($numero_aleatorio % $valor != 0) {
+            echo "Número: $numero_aleatorio no es múltiplo de $valor.<br>";
+            $numero_aleatorio = rand(1, 999); // Genera un nuevo número aleatorio
+        }
+
+        // Imprime cuando encuentra el múltiplo
+        echo "Número: $numero_aleatorio es múltiplo de $valor<br>";
+    } else {
+        echo "Por favor, proporciona un número válido en la URL, por ejemplo: ?numero=5";
+    }
+    ?>
+
+    <h2>Ejercicio 3 usando do-while</h2>
+    <p>Utiliza un ciclo do-while para encontrar el primer número entero obtenido aleatoriamente,
+    pero que además sea múltiplo de un número dado.</p>
+
+    <?php
+    // Verifica si el parámetro 'numero' está presente en la URL y es válido
+    if (isset($_GET['numero'])) {
+        $valor = $_GET['numero']; // Convertir el valor a entero
+
+        do{
+            $numero_aleatorio = rand(1, 999); // Número entre 1 y 999
+            // Verifica si el número no es múltiplo del valor dado
+            if ($numero_aleatorio % $valor != 0) {
+                echo "Número: $numero_aleatorio no es múltiplo de $valor.<br>";
+            }
+        }while($numero_aleatorio % $valor != 0);
+
+        // Imprime cuando encuentra el múltiplo
+        echo "Número: $numero_aleatorio es múltiplo de $valor<br>";
+    } else {
+        echo "Por favor, proporciona un número válido en la URL, por ejemplo: ?numero=5";
+    }
+    ?>
+
 
 </body>
 </html>
