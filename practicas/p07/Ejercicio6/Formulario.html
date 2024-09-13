@@ -1,0 +1,66 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Ejercicio 6: Consulta vehicular</title>
+    <style>
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 50%;
+            background-color: #f0f0f0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        td {
+            text-align: center;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center;">Consulta de Matrícula de Vehículo</h2>
+    
+    <form action="procesar_datos.php" method="post">
+        <table>
+            <tr>
+                <th>Matrícula (LLLNNNN)</th>
+                <td>
+                    <input type="text" name="matricula" pattern="[A-Z]{3}[0-9]{4}" title="Debe ingresar 3 letras mayúsculas seguidas de 4 números (ejemplo: ABC1234)">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" name="consultar" value="Consultar">
+                    <input type="submit" name="consultar_todo" value="Consultar Todos">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>
