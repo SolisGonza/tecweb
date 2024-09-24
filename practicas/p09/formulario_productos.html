@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Productos</title>
+    <script>
+        // Validación simple para evitar duplicación de productos
+        function validarProducto() {
+            const nombre = document.getElementById("nombre").value;
+            const modelo = document.getElementById("modelo").value;
+
+            // Simulación de una lista de productos ya existentes
+            const productosExistentes = [
+                { nombre: "Producto1", modelo: "Modelo1" },
+                { nombre: "Producto2", modelo: "Modelo2" }
+            ];
+
+            const productoDuplicado = productosExistentes.some(producto => 
+                producto.nombre === nombre && producto.modelo === modelo
+            );
+
+            if (productoDuplicado) {
+                alert("El producto ya existe.");
+                return false; // Previene el envío del formulario
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Registro de Nuevos Productos</h2>
+    <form action="procesar_producto.php" method="POST" enctype="multipart/form-data" onsubmit="return validarProducto();">
+        <label for="nombre">Nombre del producto:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="marca">Marca:</label><br>
+        <input type="text" id="marca" name="marca" required><br><br>
+
+        <label for="modelo">Modelo:</label><br>
+        <input type="text" id="modelo" name="modelo" required><br><br>
+
+        <label for="precio">Precio:</label><br>
+        <input type="number" id="precio" name="precio" step="0.01" min="0" required><br><br>
+
+        <label for="detalles">Detalles:</label><br>
+        <textarea id="detalles" name="detalles" required></textarea><br><br>
+
+        <label for="unidades">Unidades disponibles:</label><br>
+        <input type="number" id="unidades" name="unidades" min="1" required><br><br>
+
+        <label for="imagen">Imagen del producto:</label><br>
+        <input type="file" id="imagen" name="imagen" accept="image/*" required><br><br>
+
+        <input type="submit" value="Registrar Producto">
+    </form>
+</body>
+</html>
