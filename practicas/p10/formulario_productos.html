@@ -11,10 +11,10 @@
     <form action="set_producto_v2.php" method="POST" enctype="multipart/form-data" onsubmit="return validarFormulario();" >
 
         <label for="nombre">Nombre del Celular:</label><br>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+        <input type="text" id="nombre" name="nombre" ><br><br>
 
         <label for="marca">Marca:</label><br>
-        <select id="marca" name="marca" required>
+        <select id="marca" name="marca" >
             <option value="">Seleccione una marca</option>
             <option value="Marca A">Iphone</option>
             <option value="Marca B">One Plus</option>
@@ -23,19 +23,19 @@
         </select><br><br>
 
         <label for="modelo">Modelo:</label><br>
-        <input type="text" id="modelo" name="modelo" required><br><br>
+        <input type="text" id="modelo" name="modelo" ><br><br>
 
         <label for="precio">Precio:</label><br>
-        <input type="number" id="precio" name="precio" step="0.01" min="0" required><br><br>
+        <input type="number" id="precio" name="precio" step="0.01" min="0"><br><br>
 
         <label for="detalles">Detalles:</label><br>
-        <textarea id="detalles" name="detalles" required></textarea><br><br>
+        <textarea id="detalles" name="detalles"></textarea><br><br>
 
         <label for="unidades">Unidades Disponibles:</label><br>
-        <input type="number" id="unidades" name="unidades" min="1" required><br><br>
+        <input type="number" id="unidades" name="unidades" min="0" ><br><br>
 
         <label for="imagen">Ubicación de la Imagen (Texto):</label><br>
-        <input type="text" id="imagen" name="imagen" required><br><br>
+        <input type="text" id="imagen" name="imagen" ><br><br>
         
         <input type="submit" value="Registrar Producto">
     </form>
