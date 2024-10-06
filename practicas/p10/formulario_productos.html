@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Productos</title>
-   
+    <script src="validate.js"></script> 
 </head>
 <body>
-    <h1>Registro de Nuevos Productos</h1>
-    <form action="set_producto_v2.php" method="POST" enctype="multipart/form-data" >
-        <label for="nombre">Nombre del Producto:</label><br>
+    <h1>Registro de Nuevos Celulares</h1>
+    <form action="set_producto_v2.php" method="POST" enctype="multipart/form-data" onsubmit="return validarFormulario();" >
+
+        <label for="nombre">Nombre del Celular:</label><br>
         <input type="text" id="nombre" name="nombre" required><br><br>
 
         <label for="marca">Marca:</label><br>
-        <input type="text" id="marca" name="marca" required><br><br>
+        <select id="marca" name="marca" required>
+            <option value="">Seleccione una marca</option>
+            <option value="Marca A">Iphone</option>
+            <option value="Marca B">One Plus</option>
+            <option value="Marca C">Pixel</option>
+            <option value="Marca D">Redmi</option>
+        </select><br><br>
 
         <label for="modelo">Modelo:</label><br>
         <input type="text" id="modelo" name="modelo" required><br><br>
