@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -9,12 +10,13 @@
     <!-- BARRA DE NAVEGACIÓN  -->
     <nav>
       <a href="#">Product App</a>
-      
-        <ul></ul>
-        <form>
-          <input name="search" id="search" type="search" placeholder="ID">
+      <ul></ul>
+      <form>
+          <input name="search1" id="search1" type="search1" placeholder="ID">
           <button type="submit" onclick="buscarID(event)">Buscar</button>
-        </form>
+          <input name="search" id="search" type="search" placeholder="Ingresa el texto">
+          <button type="submit" onclick="buscarProducto(event)">Buscar</button>
+      </form>
     </nav>
 
     <div>
@@ -28,22 +30,19 @@
             <textarea id="description" cols="30" rows="10" placeholder="JSON de producto"></textarea>
           </div>
           <input type="hidden" id="taskId">
-          <button type="submit" onclick="agregarProducto(event)" >
-            Agregar Producto
-          </button>
+          <button onclick="agregarProducto(event)">Agregar Producto</button>
         </form>
       </div>
 
       <!-- TABLA  -->
       <div>
         <ul></ul>
-
         <table>
           <thead>
             <tr>
               <td>Id</td>
               <td>Nombre</td>
-              <td>Descripcion</td>
+              <td>Descripción</td>
             </tr>
           </thead>
           <tbody id="productos"></tbody>
@@ -55,3 +54,4 @@
     <script src="./app.js"></script>
   </body>
 </html>
+

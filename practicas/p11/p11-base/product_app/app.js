@@ -8,6 +8,68 @@ var baseJSON = {
     "imagen": "img/default.png"
   };
 
+// FUNCIÓN CALLBACK DE BOTÓN "Buscar por término"
+function buscarProducto(e) {
+    e.preventDefault(); // Evita el envío automático del formulario
+
+    // OBTENER EL TÉRMINO DE BÚSQUEDA
+    var searchTerm = document.getElementById('search').value.trim();
+
+    if (searchTerm === "") {
+        alert("Por favor, ingresa un término de búsqueda.");
+        return;
+    }
+
+    // CREAR EL OBJETO XMLHttpRequest
+    var client = getXMLHttpRequest();
+    client.open('POST', './backend/read2.php', true);
+    client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    client.onreadystatechange = function () {
+        if (client.readyState == 4) {
+            if (client.status == 200) {
+                console.log('[CLIENTE]\n' + client.responseText);
+                
+                try {
+                    // PARSEAR EL RESULTADO JSON
+                    let productos = JSON.parse(client.responseText);
+                    
+                    // VERIFICAR SI HAY PRODUCTOS
+                    if (Array.isArray(productos) && productos.length > 0) {
+                        let template = '';
+                        productos.forEach(producto => {
+                            let descripcion = `
+                                <li>Precio: ${producto.precio}</li>
+                                <li>Unidades: ${producto.unidades}</li>
+                                <li>Modelo: ${producto.modelo}</li>
+                                <li>Marca: ${producto.marca}</li>
+                                <li>Detalles: ${producto.detalles}</li>
+                            `;
+                            
+                            template += `
+                                <tr>
+                                    <td>${producto.id}</td>
+                                    <td>${producto.nombre}</td>
+                                    <td><ul>${descripcion}</ul></td>
+                                </tr>
+                            `;
+                        });
+                        document.getElementById("productos").innerHTML = template;
+                    } else {
+                        document.getElementById("productos").innerHTML = '<tr><td colspan="3">No se encontraron productos.</td></tr>';
+                    }
+                } catch (error) {
+                    console.error("Error al parsear la respuesta JSON:", error);
+                    document.getElementById("productos").innerHTML = '<tr><td colspan="3">Error al procesar la respuesta del servidor.</td></tr>';
+                }
+            } else {
+                console.error('Error en la solicitud:', client.status);
+                document.getElementById("productos").innerHTML = '<tr><td colspan="3">Error en la solicitud al servidor.</td></tr>';
+            }
+        }
+    };
+    client.send("searchTerm=" + encodeURIComponent(searchTerm));
+}
+
 // FUNCIÓN CALLBACK DE BOTÓN "Buscar"
 function buscarID(e) {
     /**
@@ -18,7 +80,7 @@ function buscarID(e) {
     e.preventDefault();
 
     // SE OBTIENE EL ID A BUSCAR
-    var id = document.getElementById('search').value;
+    var id = document.getElementById('search1').value;
 
     // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
     var client = getXMLHttpRequest();
