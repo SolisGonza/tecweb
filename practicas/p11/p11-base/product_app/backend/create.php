@@ -17,7 +17,7 @@ if (!empty($producto)) {
         
         // Validar si el producto ya existe en la BD (nombre, marca y modelo)
         $sql = "SELECT * FROM productos WHERE nombre = ? AND eliminado = 0";
-        $stmt = $conexion->prepare($sql); // Cambié $conn por $conexion
+        $stmt = $conexion->prepare($sql); 
         $stmt->bind_param("s", $nombre);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -53,10 +53,10 @@ if (!empty($producto)) {
         $stmt->close();
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Faltan datos requeridos en el JSON.']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'No se recibió ningún dato.']);
     }
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'No se recibió ningún dato.']);
-}
+} 
 
 // Cerrar la conexión a la base de datos
 $conexion->close();

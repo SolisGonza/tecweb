@@ -82,7 +82,6 @@ function buscarID(e) {
     // SE OBTIENE EL ID A BUSCAR
     var id = document.getElementById('search1').value;
 
-    // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
     var client = getXMLHttpRequest();
     client.open('POST', './backend/read.php', true);
     client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -92,7 +91,7 @@ function buscarID(e) {
             console.log('[CLIENTE]\n'+client.responseText);
             
             // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
-            let productos = JSON.parse(client.responseText);    // similar a eval('('+client.responseText+')');
+            let productos = JSON.parse(client.responseText);    
             
             // SE VERIFICA SI EL OBJETO JSON TIENE DATOS
             if(Object.keys(productos).length > 0) {
@@ -142,9 +141,7 @@ function agregarProducto(e) {
         }
         // SE OBTIENE EL STRING DEL JSON FINAL
         productoJsonString = JSON.stringify(finalJSON, null, 2);
-        console.log(finalJSON); // Agrega esto para ver el contenido del JSON
-
-        // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
+        console.log(finalJSON); 
         var client = getXMLHttpRequest();
         client.open('POST', './backend/create.php', true);
         client.setRequestHeader('Content-Type', "application/json;charset=UTF-8");
