@@ -301,38 +301,25 @@ $(document).ready(function () {
         
         // Validar Nombre
         if (!producto.nombre || producto.nombre.trim() === "" || producto.nombre.length > 100) {
-            $('#name').css('background-color', 'rgba(255, 0, 0, 0.3)');
             $('#container-name').html("El nombre es requerido y debe tener 100 caracteres o menos."); // Actualiza el contenedor con los mensajes de error
             $('#progress-name').removeClass('d-none').addClass('d-block');
-        }else {
-            $('#name').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Marca
         if (!producto.marca || producto.marca.trim() === "") {
-            $('#marca').css('background-color', 'rgba(255, 0, 0, 0.3)');
             $('#container-marca').html("La marca es requerida y debe seleccionarse de lista."); // Actualiza el contenedor con los mensajes de error
             $('#progress-marca').removeClass('d-none').addClass('d-block');
-        }else {
-            $('#marca').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
-
         // Validar Modelo
         if (!producto.modelo || producto.modelo.trim() === "" || !/^[a-zA-Z0-9]+$/.test(producto.modelo) || producto.modelo.length > 25) {
-            $('#modelo').css('background-color', 'rgba(255, 0, 0, 0.3)');
             $('#container-modelo').html("El modelo es requerido, debe ser alfanumérico y tener 25 caracteres o menos."); // Actualiza el contenedor con los mensajes de error
             $('#progress-modelo').removeClass('d-none').addClass('d-block');
-        }else {
-            $('#modelo').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Precio
         if (isNaN(producto.precio) || producto.precio <= 99.99) {
-            $('#precio').css('background-color', 'rgba(255, 0, 0, 0.3)');
             $('#container-precio').html("El precio es requerido y debe ser mayor a 99.99."); // Actualiza el contenedor con los mensajes de error
             $('#progress-precio').removeClass('d-none').addClass('d-block');
-        }else {
-            $('#precio').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Detalles
@@ -345,13 +332,9 @@ $(document).ready(function () {
 
         // Validar Unidades
         if (isNaN(producto.unidades) || producto.unidades <= 0) {
-            $('#unidades').css('background-color', 'rgba(255, 0, 0, 0.3)');
             $('#container-units').html("Las unidades son requeridas y deben ser mayor o igual a 0."); // Actualiza el contenedor con los mensajes de error
             $('#progress-units').removeClass('d-none').addClass('d-block');
-        }else {
-            $('#unidades').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
-
         // Validar Imagen
         if (!producto.imagen || producto.imagen.trim() === "") {
             producto.imagen = "img/image.png"; // Asignar imagen por defecto
