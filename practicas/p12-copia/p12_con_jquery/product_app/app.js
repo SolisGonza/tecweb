@@ -259,6 +259,7 @@ $(document).ready(function () {
         // Llamar a la función de validación
         validarJSON(finalJSON);
     });
+
     // Evento para validar el nombre del producto al teclear
     $('#name').on('input', function() {
         const nombre = $(this).val().trim(); // Obtener el valor del campo y quitar espacios
@@ -270,7 +271,7 @@ $(document).ready(function () {
         console.log(nombre);
         // Realizar la llamada AJAX para verificar si el nombre ya existe
         $.ajax({
-            url: './backend/product-search-name.php', // Cambia esta URL a la de tu script de validación
+            url: './backend/product-search-name.php', 
             method: 'POST',
             data: JSON.stringify({ nombre: nombre }),
             contentType: 'application/json;charset=UTF-8',
@@ -314,10 +315,14 @@ $(document).ready(function () {
         $('#progress-units').removeClass('d-block').addClass('d-none');
 
         if (!producto.nombre || producto.nombre.trim() === ""|| !producto.modelo || producto.modelo.trim() === "" || isNaN(producto.precio) || producto.detalles.length===0 || isNaN(producto.unidades)){
-            // Limpiar el contenedor de errores si no hay
-            $('#container').html('Por favor llena los campos requeridos.');
+            var contenidoActual = $('#container').html();
+            if (contenidoActual === 'El nombre del producto ya existe.') {
+                return false;
+            } else {
+                $('#container').html('Por favor llena los campos requeridos.');
             $('#product-result').removeClass('d-none').addClass('d-block');
-            //return true; // Todos los datos son válidos
+            }
+            
         }
         // Validar Nombre
         if (!producto.nombre || producto.nombre.trim() === "" || producto.nombre.length > 100) {
