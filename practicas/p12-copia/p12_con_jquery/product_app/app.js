@@ -297,53 +297,72 @@ $(document).ready(function () {
 
    // FUNCIÓN DE VALIDACIÓN DEL JSON
     function validarJSON(producto) {
-        let errores = []; // Array para almacenar mensajes de error
-        
+          // Limpiar los contenedores de errores al inicio
+        $('#container-name').html("");
+        $('#progress-name').removeClass('d-block').addClass('d-none');
+
+        $('#container-marca').html("");
+        $('#progress-marca').removeClass('d-block').addClass('d-none');
+
+        $('#container-modelo').html("");
+        $('#progress-modelo').removeClass('d-block').addClass('d-none');
+
+        $('#container-precio').html("");
+        $('#progress-precio').removeClass('d-block').addClass('d-none');
+
+        $('#container-units').html("");
+        $('#progress-units').removeClass('d-block').addClass('d-none');
+
+        if (!producto.nombre || producto.nombre.trim() === ""|| !producto.modelo || producto.modelo.trim() === "" || isNaN(producto.precio) || producto.detalles.length===0 || isNaN(producto.unidades)){
+            // Limpiar el contenedor de errores si no hay
+            $('#container').html('Por favor llena los campos requeridos.');
+            $('#product-result').removeClass('d-none').addClass('d-block');
+            //return true; // Todos los datos son válidos
+        }
         // Validar Nombre
         if (!producto.nombre || producto.nombre.trim() === "" || producto.nombre.length > 100) {
-            $('#container-name').html("El nombre es requerido y debe tener 100 caracteres o menos."); // Actualiza el contenedor con los mensajes de error
+            $('#container-name').html("El nombre es requerido y debe tener 100 caracteres o menos."); 
             $('#progress-name').removeClass('d-none').addClass('d-block');
+            return false;
         }
 
         // Validar Marca
         if (!producto.marca || producto.marca.trim() === "") {
-            $('#container-marca').html("La marca es requerida y debe seleccionarse de lista."); // Actualiza el contenedor con los mensajes de error
+            $('#container-marca').html("La marca es requerida y debe seleccionarse de lista."); 
             $('#progress-marca').removeClass('d-none').addClass('d-block');
+            return false;
         }
         // Validar Modelo
         if (!producto.modelo || producto.modelo.trim() === "" || !/^[a-zA-Z0-9]+$/.test(producto.modelo) || producto.modelo.length > 25) {
-            $('#container-modelo').html("El modelo es requerido, debe ser alfanumérico y tener 25 caracteres o menos."); // Actualiza el contenedor con los mensajes de error
+            $('#container-modelo').html("El modelo es requerido, debe ser alfanumérico y tener 25 caracteres o menos."); 
             $('#progress-modelo').removeClass('d-none').addClass('d-block');
+            return false;
         }
 
         // Validar Precio
         if (isNaN(producto.precio) || producto.precio <= 99.99) {
-            $('#container-precio').html("El precio es requerido y debe ser mayor a 99.99."); // Actualiza el contenedor con los mensajes de error
+            $('#container-precio').html("El precio es requerido y debe ser mayor a 99.99."); 
             $('#progress-precio').removeClass('d-none').addClass('d-block');
+            return false;
         }
 
         // Validar Detalles
         if (producto.detalles && producto.detalles.length > 250) {
-            errores.push("Los detalles deben tener 250 caracteres o menos.");
-            $('#detalles').css('background-color', 'rgba(255, 0, 0, 0.3)');
-        }else {
-            $('#detalles').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
+            $('#container-detalles').html("Los detalles deben tener 250 caracteres o menos."); 
+            $('#progress-detalles').removeClass('d-none').addClass('d-block');
         }
 
         // Validar Unidades
         if (isNaN(producto.unidades) || producto.unidades <= 0) {
-            $('#container-units').html("Las unidades son requeridas y deben ser mayor o igual a 0."); // Actualiza el contenedor con los mensajes de error
+            $('#container-units').html("Las unidades son requeridas y deben ser mayor o igual a 0."); 
             $('#progress-units').removeClass('d-none').addClass('d-block');
+            return false;
         }
         // Validar Imagen
         if (!producto.imagen || producto.imagen.trim() === "") {
             producto.imagen = "img/image.png"; // Asignar imagen por defecto
         }
 
-        // Si hay errores, mostrarlos en el contenedor y retornar false
-        if (errores.length > 0) {
-            return false;
-        }
         // Limpiar el contenedor de errores si no hay
         $('#container').html('Datos Correctos.');
         $('#product-result').removeClass('d-none').addClass('d-block');
