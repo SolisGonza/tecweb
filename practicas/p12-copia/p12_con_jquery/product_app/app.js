@@ -1,18 +1,9 @@
-// JSON BASE A MOSTRAR EN FORMULARIO
-var baseJSON = {
-    "precio": 0.0,
-    "unidades": 1,
-    "modelo": "XX-000",
-    "marca": "NA",
-    "detalles": "NA",
-    "imagen": "img/default.png"
-};
 
 $(document).ready(function () {
     // Inicializa el formulario y lista los productos
     init();
     let edit = false;
-    // Función para listar productos usando jQuery y AJAX
+    // Función para listar productos 
     function listarProductos() {
         
         $.ajax({
@@ -153,7 +144,7 @@ $(document).ready(function () {
 
 
         // Verifica que todos los campos obligatorios estén llenos
-        if (!validarCampos(finalJSON)) {
+        if (!validarCamposVacios(finalJSON)) {
             $('#container').html('Por favor, llena todos los campos requeridos.');
             $('#product-result').removeClass('d-none').addClass('d-block');
             return; // Detiene el envío si faltan datos
@@ -164,8 +155,6 @@ $(document).ready(function () {
             $('#product-result').removeClass('d-none').addClass('d-block');
             return; // Detiene el envío si faltan datos
         }
-
-        
 
         // Enviamos el JSON al servidor
         const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
@@ -189,8 +178,10 @@ $(document).ready(function () {
                         `;  
                   
                 $('#container').html(template_bar); // Actualiza la barra de resultados
-                // Haz visible la barra de estado (si está oculta)
                 $('#product-result').removeClass('d-none').addClass('d-block');
+
+                // Limpiar todos los campos del formulario
+                $('#product-form')[0].reset();
 
                 // Recarga la lista de productos
                 listarProductos();
@@ -235,7 +226,7 @@ $(document).ready(function () {
         console.log(id);
         $.post('./backend/product-single.php', { id }, (response) => {
             const producto = JSON.parse(response);
-            $('#name').val(producto.nombre); // Cambia 'name' por 'nombre'
+            $('#name').val(producto.nombre); 
             
             // Crea un objeto con solo los campos deseados
             const columnas = {
@@ -248,8 +239,8 @@ $(document).ready(function () {
             };
             
 
-            $('#description').val(JSON.stringify(columnas, null, 2)); // Muestra el producto en formato JSON
-            $('#productId').val(producto.id); // Cambia 'taskId' por 'productId'
+            $('#description').val(JSON.stringify(columnas, null, 2)); 
+            $('#productId').val(producto.id); 
             edit = true; // Activa la edición
         });
 
@@ -308,7 +299,7 @@ $(document).ready(function () {
     });
 
 
-function validarCampos(json) {
+function validarCamposVacios(json) {
     for (let key in json) {
         if (key !== 'imagen' && (!json[key] || json[key].trim() === '')) {
             return false; // Si algún campo está vacío, retorna falso
@@ -385,8 +376,7 @@ function validarCampos(json) {
         
         $('#container').html('Datos Correctos.');
         $('#product-result').removeClass('d-none').addClass('d-block');
-        return true; // Todos los datos son válidos
-
+        return true; 
     }
 
    
