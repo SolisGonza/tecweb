@@ -14,6 +14,7 @@ $(document).ready(function () {
     let edit = false;
     // Función para listar productos usando jQuery y AJAX
     function listarProductos() {
+        
         $.ajax({
             url: './backend/product-list.php',
             method: 'GET',
@@ -47,8 +48,6 @@ $(document).ready(function () {
 
     // Inicializa el formulario y lista los productos
     function init() {
-        var jsonString = JSON.stringify(baseJSON, null, 2);
-        $('#description').val(jsonString); // Muestra el JSON en el textarea
         listarProductos(); // Lista productos al iniciar
     }
 
@@ -155,7 +154,7 @@ $(document).ready(function () {
         if (!validarJSON(finalJSON)) {
             return; // Sale de la función si la validación falla
         }
-
+ 
         // Enviamos el JSON al servidor
         const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
         console.log(url);
@@ -260,39 +259,97 @@ $(document).ready(function () {
         // Llamar a la función de validación
         validarJSON(finalJSON);
     });
+    // Evento para validar el nombre del producto al teclear
+    $('#name').on('input', function() {
+        const nombre = $(this).val().trim(); // Obtener el valor del campo y quitar espacios
+
+        if (nombre.length === 0) {
+            $('#product-result').removeClass('d-block').addClass('d-none');
+            return;
+        }
+        console.log(nombre);
+        // Realizar la llamada AJAX para verificar si el nombre ya existe
+        $.ajax({
+            url: './backend/product-search-name.php', // Cambia esta URL a la de tu script de validación
+            method: 'POST',
+            data: JSON.stringify({ nombre: nombre }),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(respuesta) {
+                if (typeof respuesta === 'string') {
+                    respuesta = JSON.parse(respuesta); // Convierte la cadena JSON en un objeto
+                }
+                // Mostrar el mensaje de error si el nombre ya existe
+                if (respuesta.exists) {
+                    $('#container').html('El nombre del producto ya existe.');
+                    $('#product-result').removeClass('d-none').addClass('d-block');
+                } else {
+                    $('#container').html('Ningun producto existente en la base de datos coincide.'); // Limpiar mensaje de error si no existe
+                    $('#product-result').removeClass('d-none').addClass('d-block');
+                }
+            },
+            error: function() {
+                // Manejar errores en la llamada AJAX
+                $('#container').text('Error al validar el nombre del producto.'); // Mensaje de error
+            }
+        });
+    });
+
 
    // FUNCIÓN DE VALIDACIÓN DEL JSON
     function validarJSON(producto) {
         let errores = []; // Array para almacenar mensajes de error
-
+        
         // Validar Nombre
         if (!producto.nombre || producto.nombre.trim() === "" || producto.nombre.length > 100) {
-            errores.push("El nombre es requerido y debe tener 100 caracteres o menos.");
+            $('#name').css('background-color', 'rgba(255, 0, 0, 0.3)');
+            $('#container-name').html("El nombre es requerido y debe tener 100 caracteres o menos."); // Actualiza el contenedor con los mensajes de error
+            $('#progress-name').removeClass('d-none').addClass('d-block');
+        }else {
+            $('#name').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Marca
         if (!producto.marca || producto.marca.trim() === "") {
-            errores.push("La marca es requerida y debe seleccionarse de lista.");
+            $('#marca').css('background-color', 'rgba(255, 0, 0, 0.3)');
+            $('#container-marca').html("La marca es requerida y debe seleccionarse de lista."); // Actualiza el contenedor con los mensajes de error
+            $('#progress-marca').removeClass('d-none').addClass('d-block');
+        }else {
+            $('#marca').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Modelo
         if (!producto.modelo || producto.modelo.trim() === "" || !/^[a-zA-Z0-9]+$/.test(producto.modelo) || producto.modelo.length > 25) {
-            errores.push("El modelo es requerido, debe ser alfanumérico y tener 25 caracteres o menos.");
+            $('#modelo').css('background-color', 'rgba(255, 0, 0, 0.3)');
+            $('#container-modelo').html("El modelo es requerido, debe ser alfanumérico y tener 25 caracteres o menos."); // Actualiza el contenedor con los mensajes de error
+            $('#progress-modelo').removeClass('d-none').addClass('d-block');
+        }else {
+            $('#modelo').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Precio
         if (isNaN(producto.precio) || producto.precio <= 99.99) {
-            errores.push("El precio es requerido y debe ser mayor a 99.99.");
+            $('#precio').css('background-color', 'rgba(255, 0, 0, 0.3)');
+            $('#container-precio').html("El precio es requerido y debe ser mayor a 99.99."); // Actualiza el contenedor con los mensajes de error
+            $('#progress-precio').removeClass('d-none').addClass('d-block');
+        }else {
+            $('#precio').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Detalles
         if (producto.detalles && producto.detalles.length > 250) {
             errores.push("Los detalles deben tener 250 caracteres o menos.");
+            $('#detalles').css('background-color', 'rgba(255, 0, 0, 0.3)');
+        }else {
+            $('#detalles').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Unidades
         if (isNaN(producto.unidades) || producto.unidades <= 0) {
-            errores.push("Las unidades son requeridas y deben ser mayor o igual a 0.");
+            $('#unidades').css('background-color', 'rgba(255, 0, 0, 0.3)');
+            $('#container-units').html("Las unidades son requeridas y deben ser mayor o igual a 0."); // Actualiza el contenedor con los mensajes de error
+            $('#progress-units').removeClass('d-none').addClass('d-block');
+        }else {
+            $('#unidades').css('background-color', 'rgba(0, 255, 0, 0.3)'); // Limpia el borde si es válido
         }
 
         // Validar Imagen
@@ -302,16 +359,14 @@ $(document).ready(function () {
 
         // Si hay errores, mostrarlos en el contenedor y retornar false
         if (errores.length > 0) {
-            let template_bar = errores.map(error => `<li style="list-style: none;">${error}</li>`).join('');
-            $('#container').html(template_bar); // Actualiza el contenedor con los mensajes de error
-            $('#product-result').removeClass('d-none').addClass('d-block');
             return false;
         }
         // Limpiar el contenedor de errores si no hay
-        $('#container').html('');
-        $('#product-result').removeClass('d-block').addClass('d-none');
+        $('#container').html('Datos Correctos.');
+        $('#product-result').removeClass('d-none').addClass('d-block');
         return true; // Todos los datos son válidos
 
     }
 
+   
 });

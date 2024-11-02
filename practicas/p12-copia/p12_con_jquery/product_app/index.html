@@ -33,6 +33,9 @@
               <form id="product-form"><!-- Product mientras que en el video es task-->
                 <div class="form-group">
                   <input class="form-control" type="text" id="name" placeholder="Nombre de producto">
+                  <div class="mb-3 my-2 d-none" id="progress-name"><!-- Product mientras que en el video es task-->
+                    <ul id="container-name"></ul>
+                  </div>
                 </div>
                 <div class="form-group">
                   <select class="form-control" id="marca" name="marca" >
@@ -42,18 +45,30 @@
                     <option value="Pixel">Pixel</option>
                     <option value="Redmi">Redmi</option>
                   </select>
+                  <div class="mb-3 my-2 d-none" id="progress-marca"><!-- Product mientras que en el video es task-->
+                    <ul id="container-marca"></ul>
+                  </div>
                 </div>
                 <div class="form-group">
                   <input class="form-control"  type="text" id="modelo" name="modelo" placeholder="Modelo">
+                  <div class="mb-3 my-2 d-none" id="progress-modelo"><!-- Product mientras que en el video es task-->
+                    <ul id="container-modelo"></ul>
+                  </div>
                 </div>
                 <div class="form-group">
                   <input class="form-control" type="number" id="precio" name="precio" step="0.01" min="0" placeholder="Precio">
+                  <div class="mb-3 my-2 d-none" id="progress-precio"><!-- Product mientras que en el video es task-->
+                    <ul id="container-precio"></ul>
+                  </div>
                 </div>
                 <div class="form-group">
                   <textarea class="form-control" id="detalles" cols="30" rows="3" placeholder="Detalles del producto"></textarea>
                 </div>
                 <div class="form-group">
                   <input class="form-control"  type="number" id="unidades" name="unidades" min="0" placeholder="Unidades">
+                  <div class="mb-3 my-2 d-none" id="progress-units"><!-- Product mientras que en el video es task-->
+                    <ul id="container-units"></ul>
+                  </div>
                 </div>
                 <div class="form-group">
                   <input class="form-control"  type="text" id="imagen" name="imagen" placeholder="Ruta de la imagen">
