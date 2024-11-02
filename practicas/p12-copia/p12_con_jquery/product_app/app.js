@@ -151,10 +151,22 @@ $(document).ready(function () {
         finalJSON['imagen'] = $('#imagen').val();
         console.log(finalJSON);
 
-        if (!validarJSON(finalJSON)) {
-            return; // Sale de la función si la validación falla
+
+        // Verifica que todos los campos obligatorios estén llenos
+        if (!validarCampos(finalJSON)) {
+            $('#container').html('Por favor, llena todos los campos requeridos.');
+            $('#product-result').removeClass('d-none').addClass('d-block');
+            return; // Detiene el envío si faltan datos
         }
- 
+
+        if (!validarJSON(finalJSON)) {
+            $('#container').html('Por favor, llena todos los campos requeridos segun el formato.');
+            $('#product-result').removeClass('d-none').addClass('d-block');
+            return; // Detiene el envío si faltan datos
+        }
+
+        
+
         // Enviamos el JSON al servidor
         const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
         console.log(url);
@@ -186,7 +198,7 @@ $(document).ready(function () {
         });
     });
     
-    
+
     
     // Función para eliminar producto
     $(document).on('click', '.product-delete', function () {
@@ -296,7 +308,16 @@ $(document).ready(function () {
     });
 
 
-   // FUNCIÓN DE VALIDACIÓN DEL JSON
+function validarCampos(json) {
+    for (let key in json) {
+        if (key !== 'imagen' && (!json[key] || json[key].trim() === '')) {
+            return false; // Si algún campo está vacío, retorna falso
+        }
+    }
+    return true; // Si todos los campos están llenos, retorna verdadero
+}
+
+   // FUNCIÓN DE VALIDACIÓN 
     function validarJSON(producto) {
           // Limpiar los contenedores de errores al inicio
         $('#container-name').html("");
@@ -314,16 +335,9 @@ $(document).ready(function () {
         $('#container-units').html("");
         $('#progress-units').removeClass('d-block').addClass('d-none');
 
-        if (!producto.nombre || producto.nombre.trim() === ""|| !producto.modelo || producto.modelo.trim() === "" || isNaN(producto.precio) || producto.detalles.length===0 || isNaN(producto.unidades)){
-            var contenidoActual = $('#container').html();
-            if (contenidoActual === 'El nombre del producto ya existe.') {
-                return false;
-            } else {
-                $('#container').html('Por favor llena los campos requeridos.');
-            $('#product-result').removeClass('d-none').addClass('d-block');
-            }
-            
-        }
+        $('#container').html('');
+        $('#product-result').removeClass('d-block').addClass('d-none');
+       
         // Validar Nombre
         if (!producto.nombre || producto.nombre.trim() === "" || producto.nombre.length > 100) {
             $('#container-name').html("El nombre es requerido y debe tener 100 caracteres o menos."); 
@@ -368,7 +382,7 @@ $(document).ready(function () {
             producto.imagen = "img/image.png"; // Asignar imagen por defecto
         }
 
-        // Limpiar el contenedor de errores si no hay
+        
         $('#container').html('Datos Correctos.');
         $('#product-result').removeClass('d-none').addClass('d-block');
         return true; // Todos los datos son válidos
