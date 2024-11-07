@@ -1,4 +1,5 @@
 <?php
+/*
 // product-search-name.php
 include_once __DIR__.'/database.php';
 
@@ -14,4 +15,6 @@ $result = mysqli_query($conexion, "SELECT COUNT(*) FROM productos WHERE nombre =
 $exists = $result ? mysqli_fetch_array($result)[0] > 0 : false;
 
 echo json_encode(['exists' => $exists]);
+*/
+
 ?>

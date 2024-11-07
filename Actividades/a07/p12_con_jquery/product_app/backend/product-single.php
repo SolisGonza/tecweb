@@ -1,5 +1,5 @@
 <?php
-
+/*
 include_once __DIR__ . '/database.php';
 
 if (isset($_POST['id'])) {
@@ -34,4 +34,7 @@ if (isset($_POST['id'])) {
 } else {
     echo json_encode(['error' => 'ID no proporcionado']);
 }
+    */
+
+    
 ?>

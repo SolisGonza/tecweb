@@ -1,5 +1,6 @@
 <?php
-    include_once __DIR__.'/database.php';
+    /*
+    include_once __DIR__.'\myapi\Products.php';
 
     // SE CREA EL ARREGLO QUE SE VA A DEVOLVER EN FORMA DE JSON
     $data = array(
@@ -22,4 +23,20 @@
     
     // SE HACE LA CONVERSIÓN DE ARRAY A JSON
     echo json_encode($data, JSON_PRETTY_PRINT);
-?>
+    */
+
+    namespace Backend\myapi;
+
+    // Incluir el archivo de la clase Products
+    include_once __DIR__ . '/myapi/Products.php';
+
+    // Crear instancia de la clase Products'root', '1001', 'marketzone'
+    $products = new Products('root', '1001', 'marketzone');
+
+    // Invocar el método delete() con el ID obtenido de la solicitud
+    $products->delete($_GET['id'] ?? '');
+
+    // Usar getData() para devolver la respuesta en JSON
+    echo $products->getData();
+
+?> 
