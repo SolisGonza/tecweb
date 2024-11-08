@@ -11,8 +11,10 @@ $(document).ready(function () {
             method: 'GET',
             dataType: 'json',
             success: function (productos) {
+                if (typeof productos === "string") {
+                    productos = JSON.parse(productos);
+                }
                 let template = '';
-
                 productos.forEach(function (producto) {
                     let descripcion = `
                         <li>precio: ${producto.precio}</li>
@@ -54,6 +56,9 @@ $(document).ready(function () {
             data: { search: search },
             dataType: 'json',
             success: function (productos) {
+                if (typeof productos === 'string') {
+                    productos = JSON.parse(productos);  // Convierte la cadena JSON en un objeto
+                }
                 let template = '';
                 let template_bar = '';
 
@@ -96,6 +101,10 @@ $(document).ready(function () {
             data: { search: search },
             dataType: 'json',
             success: function (productos) {
+                if (typeof productos === 'string') {
+                    productos = JSON.parse(productos);  // Convierte la cadena JSON en un objeto
+                }
+
                 let template = '';
                 let template_bar = '';
 
@@ -140,6 +149,7 @@ $(document).ready(function () {
         finalJSON['detalles'] = $('#detalles').val();
         finalJSON['unidades'] = $('#unidades').val();
         finalJSON['imagen'] = $('#imagen').val();
+        finalJSON['id'] = $('#productId').val();
         console.log(finalJSON);
 
 
@@ -165,16 +175,18 @@ $(document).ready(function () {
             method: 'POST',
             data: JSON.stringify(finalJSON),
             contentType: 'application/json;charset=UTF-8',
-            success: function (respuesta) {
-                // Si la respuesta es una cadena, conviértela en un objeto JSON
-                if (typeof respuesta === 'string') {
-                    respuesta = JSON.parse(respuesta); // Convierte la cadena JSON en un objeto
+            success: function (productos) {
+                console.log(productos);
+                // Si la productos es una cadena, conviértela en un objeto JSON
+                if (typeof productos === 'string') {
+                    productos = JSON.parse(productos);  // Convierte la cadena JSON en un objeto
                 }
-                console.log(respuesta); // Verifica la respuesta recibida
+                console.log("holaq");
+                console.log(productos); // Verifica la productos recibida
                 let template_bar = '';
                 template_bar += `
-                            <li style="list-style: none;">status: ${respuesta.status}</li>
-                            <li style="list-style: none;">message: ${respuesta.message}</li>
+                            <li style="list-style: none;">status: ${productos.status}</li>
+                            <li style="list-style: none;">message: ${productos.message}</li>
                         `;  
                   
                 $('#container').html(template_bar); // Actualiza la barra de resultados
@@ -200,14 +212,14 @@ $(document).ready(function () {
                 url: './backend/product-delete.php',
                 method: 'GET',
                 data: { id: id },
-                success: function (respuesta) {
-                    // Si la respuesta es una cadena, conviértela en un objeto JSON
-                    if (typeof respuesta === 'string') {
-                        respuesta = JSON.parse(respuesta); // Convierte la cadena JSON en un objeto
+                success: function (productos) {
+                    // Si la productos es una cadena, conviértela en un objeto JSON
+                    if (typeof productos === 'string') {
+                        productos = JSON.parse(productos); // Convierte la cadena JSON en un objeto
                     }
                     let template_bar = `
-                        <li style="list-style: none;">status: ${respuesta.status}</li>
-                        <li style="list-style: none;">message: ${respuesta.message}</li>
+                        <li style="list-style: none;">status: ${productos.status}</li>
+                        <li style="list-style: none;">message: ${productos.message}</li>
                     `;
                     $('#container').html(template_bar); // Actualiza la barra de resultados
                     $('#product-result').removeClass('d-none').addClass('d-block');
@@ -227,19 +239,12 @@ $(document).ready(function () {
         $.post('./backend/product-single.php', { id }, (response) => {
             const producto = JSON.parse(response);
             $('#name').val(producto.nombre); 
-            
-            // Crea un objeto con solo los campos deseados
-            const columnas = {
-                precio: producto.precio,
-                unidades: producto.unidades,
-                modelo: producto.modelo,
-                marca: producto.marca,
-                imagen: producto.imagen,
-                detalles: producto.detalles
-            };
-            
-
-            $('#description').val(JSON.stringify(columnas, null, 2)); 
+            $('#precio').val(producto.precio); 
+            $('#unidades').val(producto.unidades); 
+            $('#modelo').val(producto.modelo); 
+            $('#marca').val(producto.marca); 
+            $('#imagen').val(producto.imagen); 
+            $('#detalles').val(producto.detalles); 
             $('#productId').val(producto.id); 
             edit = true; // Activa la edición
         });
@@ -275,15 +280,16 @@ $(document).ready(function () {
         // Realizar la llamada AJAX para verificar si el nombre ya existe
         $.ajax({
             url: './backend/product-search-name.php', 
-            method: 'POST',
-            data: JSON.stringify({ nombre: nombre }),
-            contentType: 'application/json;charset=UTF-8',
-            success: function(respuesta) {
-                if (typeof respuesta === 'string') {
-                    respuesta = JSON.parse(respuesta); // Convierte la cadena JSON en un objeto
+            method: 'GET',
+            data:   { nombre: nombre },
+            dataType: 'json',
+            success: function(productos) {
+                console.log(productos);
+                if (typeof productos === 'string') {
+                    productos = JSON.parse(productos); // Convierte la cadena JSON en un objeto
                 }
                 // Mostrar el mensaje de error si el nombre ya existe
-                if (respuesta.exists) {
+                if (productos.exists) {
                     $('#container').html('El nombre del producto ya existe.');
                     $('#product-result').removeClass('d-none').addClass('d-block');
                 } else {
@@ -301,7 +307,7 @@ $(document).ready(function () {
 
 function validarCamposVacios(json) {
     for (let key in json) {
-        if (key !== 'imagen' && (!json[key] || json[key].trim() === '')) {
+        if (key !== 'imagen' && key !== 'id' && (!json[key] || json[key].trim() === '')) {
             return false; // Si algún campo está vacío, retorna falso
         }
     }
