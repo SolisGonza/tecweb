@@ -1,8 +1,9 @@
 <?php
-namespace Gonza\P13;
+namespace Gonza\P13\Create;
+use Gonza\P13\myapi\DataBase as DataBase;
 
 class Create extends DataBase {
-    public function Create(string $db) {
+    public function __construct(string $db) {
         parent::__construct('root', '1001', $db);
     }
 

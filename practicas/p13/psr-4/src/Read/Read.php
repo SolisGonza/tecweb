@@ -87,5 +87,37 @@ class Read extends DataBase {
             $this->data = ['error' => 'Error al preparar la consulta'];
         }
     }
+    // Método para obtener un producto específico usando su nombre
+    public function singleByName($nombre) {
+ 
+
+        if (empty($nombre)) {
+            $this->response = ['error' => 'Nombre no proporcionado'];
+            exit;
+        }
+
+        $result = mysqli_query($this->conexion, "SELECT COUNT(*) FROM productos WHERE nombre = '$nombre'");
+        $exists = $result ? mysqli_fetch_array($result)[0] > 0 : false;
+
+        // Preparar la consulta
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) > 0 FROM productos WHERE nombre = ?");
+        
+        if ($stmt) {
+            $stmt->bind_param("s", $nombre);
+            $stmt->execute();
+            
+            // Obtener el resultado directamente como booleano
+            $stmt->bind_result($exists);
+            $stmt->fetch();
+            
+            // Guardar el resultado en $this->response
+            $this->response = ['exists' => $exists];
+            
+            $stmt->close();
+        } else {
+            // En caso de error, almacenar mensaje en $this->response
+            $this->response = ['error' => 'Error al preparar la consulta'];
+        }
+    }
 }
 ?>
