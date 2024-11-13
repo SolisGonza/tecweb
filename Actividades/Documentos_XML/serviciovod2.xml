@@ -1,0 +1,38 @@
+<CatalogoVOD>
+    <cuenta correo="gonzalo40j@gmail.com">
+        <perfiles>
+            <perfil usuario="Aline Romo" idioma="Español" />
+            <perfil usuario="Gonzalo Solis" idioma="Inglés" />
+        </perfiles>
+    </cuenta>
+    <contenido>
+        <peliculas>
+            <genero nombre="Acción">
+                <titulo nombre="John Wick" duracion="120" />
+                <titulo nombre="Interestellar" duracion="115" />
+                <titulo nombre="Rambo" duracion="130" />
+                <titulo nombre="Alien" duracion="110" />
+            </genero>
+            <genero nombre="Drama">
+                <titulo nombre="Forest Gumpp" duracion="90" />
+                <titulo nombre="The Pianist" duracion="95" />
+                <titulo nombre="The Godfather" duracion="100" />
+                <titulo nombre="American Beauty" duracion="105" />
+            </genero>
+        </peliculas>
+        <programas>
+            <genero nombre="Documental">
+                <titulo nombre="Documental 1" duracion="45" />
+                <titulo nombre="Documental 2" duracion="50" />
+                <titulo nombre="Documental 3" duracion="40" />
+                <titulo nombre="Documental 4" duracion="55" />
+            </genero>
+            <genero nombre="Comedia">
+                <titulo nombre="The Big Bang Theory" duracion="30" />
+                <titulo nombre="Malcomm" duracion="25" />
+                <titulo nombre="Drake and Josh" duracion="35" />
+                <titulo nombre="iCarly" duracion="20" />
+            </genero>
+        </programas>
+    </contenido>
+</CatalogoVOD>

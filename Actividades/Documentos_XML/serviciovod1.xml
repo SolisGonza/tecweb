@@ -1,17 +1,96 @@
 <CatalogoVOD>
     <cuenta>
+        <correo>gonzalo40j@gmail.com</correo>
+        <perfiles>
+            <perfil>
+                <usuario>Aline Romo</usuario>
+                <idioma>Español</idioma>
+            </perfil>
+            <perfil>
+                <usuario>Gonzalo Solis</usuario>
+                <idioma>Inglés</idioma>
+            </perfil>
+        </perfiles>
     </cuenta>
     <contenido>
         <peliculas>
             <genero>
+                <nombre>Acción</nombre>
+                <titulo>
+                    <nombre>John Wick</nombre>
+                    <duracion>120</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Interestellar</nombre>
+                    <duracion>115</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Rambo</nombre>
+                    <duracion>130</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Alien</nombre>
+                    <duracion>110</duracion>
+                </titulo>
             </genero>
             <genero>
+                <nombre>Drama</nombre>
+                <titulo>
+                    <nombre>Forest Gumpp</nombre>
+                    <duracion>90</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>The Pianist</nombre>
+                    <duracion>95</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>The Godfather</nombre>
+                    <duracion>100</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>American Beauty</nombre>
+                    <duracion>105</duracion>
+                </titulo>
             </genero>
         </peliculas>
         <programas>
             <genero>
+                <nombre>Documental</nombre>
+                <titulo>
+                    <nombre>Documental 1</nombre>
+                    <duracion>45</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Documental 2</nombre>
+                    <duracion>50</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Documental 3</nombre>
+                    <duracion>40</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Documental 4</nombre>
+                    <duracion>55</duracion>
+                </titulo>
             </genero>
             <genero>
+                <nombre>Comedia</nombre>
+                <titulo>
+                    <nombre>The Big Bang Theory</nombre>
+                    <duracion>30</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Malcomm</nombre>
+                    <duracion>25</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Drake and Josh</nombre>
+                    <duracion>35</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>iCarly</nombre>
+                    <duracion>20</duracion>
+                </titulo>
             </genero>
         </programas>
     </contenido>
