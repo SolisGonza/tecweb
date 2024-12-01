@@ -97,5 +97,21 @@ $app->get('/product-search-name', function (Request $request, Response $response
         return $response->withJson(["error" => "Error al obtener el producto: " . $e->getMessage()], 500);
     }
 });
+// Ruta POST para obtener un producto por su ID
+$app->post('/product-single', function (Request $request, Response $response, $args) {
+    try {
+        // Obtener el ID del cuerpo de la solicitud
+        $parsedBody = $request->getParsedBody();
+        $id = $parsedBody['id'] ?? null;
+        $productos = new Read('marketzone');
+        $productos->single($id);
+        $data = json_decode($productos->getData(), true);
+        $response->getBody()->write(json_encode($data));
 
+        return $response->withHeader('Content-Type', 'application/json');
+    } catch (Exception $e) {
+        // Manejo de errores
+        return $response->withJson(["error" => "Error al obtener el producto: " . $e->getMessage()], 500);
+    }
+});
 $app->run();

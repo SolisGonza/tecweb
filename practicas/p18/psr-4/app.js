@@ -236,17 +236,22 @@ $(document).ready(function () {
         const element = e.currentTarget.closest('tr'); // Encuentra el elemento <tr> más cercano
         const id = $(element).attr('productId'); // Obtiene el productId del atributo
         console.log(id);
-        $.post('./backend/product-single.php', { id }, (response) => {
-            const producto = JSON.parse(response);
-            $('#name').val(producto.nombre); 
-            $('#precio').val(producto.precio); 
-            $('#unidades').val(producto.unidades); 
-            $('#modelo').val(producto.modelo); 
-            $('#marca').val(producto.marca); 
-            $('#imagen').val(producto.imagen); 
-            $('#detalles').val(producto.detalles); 
-            $('#productId').val(producto.id); 
-            edit = true; // Activa la edición
+        $.post('http://localhost/tecweb/practicas/p18/psr-4/backend/product-single', { id }, (response) => {
+            try {
+                const producto = typeof response === 'string' ? JSON.parse(response) : response;
+                console.log(producto); // Revisa el contenido
+                $('#name').val(producto.nombre); 
+                $('#precio').val(producto.precio); 
+                $('#unidades').val(producto.unidades); 
+                $('#modelo').val(producto.modelo); 
+                $('#marca').val(producto.marca); 
+                $('#imagen').val(producto.imagen); 
+                $('#detalles').val(producto.detalles); 
+                $('#productId').val(producto.id); 
+                edit = true; // Activa la edición
+            } catch (error) {
+                console.error("Error al analizar JSON:", error, response);
+            }
         });
 
         e.preventDefault(); // Previene la acción por defecto del enlace
