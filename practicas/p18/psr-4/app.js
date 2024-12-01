@@ -279,9 +279,9 @@ $(document).ready(function () {
         console.log(nombre);
         // Realizar la llamada AJAX para verificar si el nombre ya existe
         $.ajax({
-            url: './backend/product-search-name.php', 
+            url: 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-search-name', 
             method: 'GET',
-            data:   { nombre: nombre },
+            data:{ nombre: nombre },
             dataType: 'json',
             success: function(productos) {
                 console.log(productos);

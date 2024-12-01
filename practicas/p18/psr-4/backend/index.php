@@ -60,7 +60,7 @@ $app->get('/product-search', function (Request $request, Response $response, $ar
         $productos->search($searchTerm);
         $responseData = json_decode($productos->getData(), true);
         $response->getBody()->write(json_encode($responseData));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json');
     } catch (Exception $e) {
         // Manejo de errores
         return $response->withJson(["error" => "Error al realizar la búsqueda: " . $e->getMessage()], 500);
@@ -75,10 +75,26 @@ $app->post('/product-update', function (Request $request, Response $response, $a
         $productos->edit($data);
         $responseData = json_decode($productos->getData(), true);
         $response->getBody()->write(json_encode($responseData));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json');
     } catch (Exception $e) {
         // Manejo de errores
         return $response->withJson(["error" => "Error al actualizar el producto: " . $e->getMessage()], 500);
+    }
+});
+
+// Ruta GET para obtener un producto por nombre
+$app->get('/product-search-name', function (Request $request, Response $response, $args) {
+    try {
+        $nombre = $request->getQueryParams()['nombre'] ?? '';
+        $productos = new Read('marketzone');
+        $productos->singleByName($nombre);
+        
+        // Usamos el valor de `data` como la respuesta
+        $responseData = $productos->getData(); 
+        $response->getBody()->write($responseData); // Directamente escribir el JSON ya generado
+        return $response->withHeader('Content-Type', 'application/json');
+    } catch (Exception $e) {
+        return $response->withJson(["error" => "Error al obtener el producto: " . $e->getMessage()], 500);
     }
 });
 

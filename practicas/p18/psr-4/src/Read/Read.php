@@ -90,33 +90,24 @@ class Read extends DataBase {
     // Método para obtener un producto específico usando su nombre
     public function singleByName($nombre) {
  
-
         if (empty($nombre)) {
-            $this->response = ['error' => 'Nombre no proporcionado'];
-            exit;
+            $this->data = ['error' => 'Nombre no proporcionado'];
+            return;
         }
-
-        $result = mysqli_query($this->conexion, "SELECT COUNT(*) FROM productos WHERE nombre = '$nombre'");
-        $exists = $result ? mysqli_fetch_array($result)[0] > 0 : false;
-
-        // Preparar la consulta
-        $stmt = $this->conexion->prepare("SELECT COUNT(*) > 0 FROM productos WHERE nombre = ?");
-        
-        if ($stmt) {
+    
+        if ($this->conexion) {
+            // Usamos una consulta preparada para evitar inyección de SQL
+            $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM productos WHERE nombre = ?");
             $stmt->bind_param("s", $nombre);
             $stmt->execute();
-            
-            // Obtener el resultado directamente como booleano
             $stmt->bind_result($exists);
             $stmt->fetch();
-            
-            // Guardar el resultado en $this->response
-            $this->response = ['exists' => $exists];
-            
             $stmt->close();
+    
+            // Asignamos el resultado al atributo `data` del objeto
+            $this->data = ['exists' => (bool)$exists];
         } else {
-            // En caso de error, almacenar mensaje en $this->response
-            $this->response = ['error' => 'Error al preparar la consulta'];
+            $this->data = ['error' => 'No se pudo conectar a la base de datos'];
         }
     }
 }
