@@ -25,11 +25,6 @@ $app->get('/product-list', function ($request, $response, $args) {
         $productos = new Read('marketzone');
         $productos->list();  // Listar productos desde la base de datos
         $data = json_decode($productos->getData());
-        
-        //if (json_last_error() !== JSON_ERROR_NONE) {
-        //    throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
-        //}
-
         $response->getBody()->write(json_encode($data));
         return $response->withHeader('Content-Type', 'application/json');
     } catch (Exception $e) {
@@ -91,7 +86,7 @@ $app->get('/product-search-name', function (Request $request, Response $response
         
         // Usamos el valor de `data` como la respuesta
         $responseData = $productos->getData(); 
-        $response->getBody()->write($responseData); // Directamente escribir el JSON ya generado
+        $response->getBody()->write($responseData); 
         return $response->withHeader('Content-Type', 'application/json');
     } catch (Exception $e) {
         return $response->withJson(["error" => "Error al obtener el producto: " . $e->getMessage()], 500);
@@ -114,4 +109,18 @@ $app->post('/product-single', function (Request $request, Response $response, $a
         return $response->withJson(["error" => "Error al obtener el producto: " . $e->getMessage()], 500);
     }
 });
+//Ruta GET para borrar un producto por su ID
+$app->get('/product-delete', function (Request $request, Response $response, $args) {
+    try {
+        $id = $request->getQueryParams()['id'] ?? '';
+        $productos = new Delete('marketzone');
+        $productos->delet($id);
+        $responseData = $productos->getData(); 
+        $response->getBody()->write($responseData); 
+        return $response->withHeader('Content-Type', 'application/json');
+    } catch (Exception $e) {
+        return $response->withJson(["error" => "Error al obtener el producto: " . $e->getMessage()], 500);
+    }
+});
+
 $app->run();

@@ -209,7 +209,7 @@ $(document).ready(function () {
             let id = $(this).closest('tr').attr('productId');
 
             $.ajax({
-                url: './backend/product-delete.php',
+                url: 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-delete',
                 method: 'GET',
                 data: { id: id },
                 success: function (productos) {
