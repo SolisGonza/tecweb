@@ -7,7 +7,7 @@ $(document).ready(function () {
     function listarProductos() {
         
         $.ajax({
-            url: 'backend/product-list.php',
+            url: 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-list',
             method: 'GET',
             dataType: 'json',
             success: function (productos) {
@@ -167,7 +167,7 @@ $(document).ready(function () {
         }
 
         // Enviamos el JSON al servidor
-        const url = edit === false ? 'backend/product-add.php' : './backend/product-edit.php';
+        const url = edit === false ? 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-add' : './backend/product-edit.php';
         console.log(url);
         
         $.ajax({
