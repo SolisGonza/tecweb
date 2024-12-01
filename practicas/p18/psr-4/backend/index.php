@@ -30,7 +30,6 @@ $app->get('/product-list', function ($request, $response, $args) {
         //    throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
         //}
 
-        // Crear una respuesta JSON
         $response->getBody()->write(json_encode($data));
         return $response->withHeader('Content-Type', 'application/json');
     } catch (Exception $e) {
@@ -52,10 +51,21 @@ $app->post('/product-add', function (Request $request, Response $response, $args
     }
 });
 
-
-$app->get('/hola', function ($request, $response, $args) {
-    $response->getBody()->write("Hola Mundo Slim!");
-    return $response;
+// Ruta GET para buscar productos
+$app->get('/product-search', function (Request $request, Response $response, $args) {
+    try {
+        // Obtener el parámetro 'search' desde la URL
+        $searchTerm = $request->getQueryParams()['search'] ?? '';
+        $productos = new Read('marketzone');
+        $productos->search($searchTerm);
+        $responseData = json_decode($productos->getData(), true);
+        $response->getBody()->write(json_encode($responseData));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+    } catch (Exception $e) {
+        // Manejo de errores
+        return $response->withJson(["error" => "Error al realizar la búsqueda: " . $e->getMessage()], 500);
+    }
 });
+
 
 $app->run();

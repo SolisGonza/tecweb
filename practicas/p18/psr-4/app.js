@@ -51,7 +51,7 @@ $(document).ready(function () {
         let search = $('#search').val(); // Obtiene el valor del campo de búsqueda
 
         $.ajax({
-            url: './backend/product-search.php',
+            url: 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-search',
             method: 'GET',
             data: { search: search },
             dataType: 'json',
@@ -96,7 +96,7 @@ $(document).ready(function () {
         let search = $('#search').val(); // Obtiene el valor del campo de búsqueda
 
         $.ajax({
-            url: './backend/product-search.php',
+            url: 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-search',
             method: 'GET',
             data: { search: search },
             dataType: 'json',
