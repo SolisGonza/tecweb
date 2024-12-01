@@ -167,7 +167,7 @@ $(document).ready(function () {
         }
 
         // Enviamos el JSON al servidor
-        const url = edit === false ? 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-add' : './backend/product-edit.php';
+        const url = edit === false ? 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-add' : 'http://localhost/tecweb/practicas/p18/psr-4/backend/product-update';
         console.log(url);
         
         $.ajax({

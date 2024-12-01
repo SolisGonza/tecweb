@@ -67,5 +67,19 @@ $app->get('/product-search', function (Request $request, Response $response, $ar
     }
 });
 
+// Ruta POST para actualizar un producto
+$app->post('/product-update', function (Request $request, Response $response, $args) {
+    try {
+        $data = $request->getBody();
+        $productos = new Update('marketzone');
+        $productos->edit($data);
+        $responseData = json_decode($productos->getData(), true);
+        $response->getBody()->write(json_encode($responseData));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+    } catch (Exception $e) {
+        // Manejo de errores
+        return $response->withJson(["error" => "Error al actualizar el producto: " . $e->getMessage()], 500);
+    }
+});
 
 $app->run();
